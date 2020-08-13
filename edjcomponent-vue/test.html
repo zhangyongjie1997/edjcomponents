@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<body>
+  <div id="app">
+    {{a}}
+    <anchored-heading a=1>
+      <div>asd</div>
+      <template v-slot:named="scoped">
+        {{scoped.a}}
+      </template>
+    </anchored-heading>
+  </div>
+  <script>
+    Vue.component("anchored-heading", {
+      render: function(createElement){
+        console.log(this)
+        return createElement(
+          "h" + this.level,
+          {
+            scopedSlots: {
+              named: scoped => createElement("span", scoped.a)
+            }
+          },
+          [this.$slots.default]
+        )
+      },
+      props: {
+        level: {
+          type: Number,
+          required: true,
+          default: 1
+        }
+      }
+    })
+    new Vue({
+      el: "#app",
+      data: {
+        a: 1,
+        level: 1,
+        scoped: {a: 1}
+      },
+    }).$mount();
+  </script>
+</body>
+</html>
