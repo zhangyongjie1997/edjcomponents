@@ -8,26 +8,49 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
 <body>
   <div id="app">
-    {{a}}
-    <anchored-heading a=1>
-      <div>asd</div>
-      <template v-slot:named="scoped">
-        {{scoped.a}}
+    <anchored a=1>
+      <template v-slot:default>
+        <a href="">asd</a>
       </template>
-    </anchored-heading>
+      <template v-slot:named="scope">
+        {{scope.w.w}}
+      </template>
+      
+    </anchored>
   </div>
   <script>
-    Vue.component("anchored-heading", {
-      render: function(createElement){
+    var getChildrenTextContext = function (children) {
+      return children.map(function (node) {
+        return node.children 
+          ? getChildrenTextContext(node.children) 
+          : node.text;
+      }).join("");
+    }
+    Vue.component("anchored", {
+      render: function(createElement, context){
         console.log(this)
+        var headingId = getChildrenTextContext(this.$slots.default)
+          .toLowerCase()
+          .replace(/\W+/g, "-")
+          .replace(/^-|-$/g, "");
         return createElement(
           "h" + this.level,
-          {
-            scopedSlots: {
-              named: scoped => createElement("span", scoped.a)
-            }
-          },
-          [this.$slots.default]
+          [
+            createElement("a", {
+              attrs: {
+                name: headingId,
+                href: "#" + headingId,
+              }
+            }, this.$slots.default),
+            createElement("div", {
+              attrs: {
+                name: "div"
+              }
+            }, this.$scopedSlots.named({
+              q: "11111",
+              w: { w: "wwww" }
+            }))
+          ]
         )
       },
       props: {
@@ -35,7 +58,12 @@
           type: Number,
           required: true,
           default: 1
+        },
+        scoped: {
+          type: Object,
+          default: {a: "99999"}
         }
+
       }
     })
     new Vue({
@@ -45,7 +73,17 @@
         level: 1,
         scoped: {a: 1}
       },
+      created(){
+        console.log(this.$anchored)
+      }
     }).$mount();
+    var name = "asd"
+    (0, camelize)("-" + name)
+    function camelize(str) {
+      return str.replace(/-(\w)/g, function (_, c) {
+        return c.toUpperCase();
+      });
+    }
   </script>
 </body>
 </html>
