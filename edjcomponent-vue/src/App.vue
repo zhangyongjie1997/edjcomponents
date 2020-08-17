@@ -1,27 +1,34 @@
 <template>
-  <div id="app">
-  </div>
+  <div id="app"></div>
 </template>
 <script>
+import utils from "./scripts/utils";
 export default {
-  data(){
+  data() {
     return {
       text: ""
-    }
+    };
   },
-  created(){
+  created() {
+    console.log(this);
+    this.$confirm({
+      message: "asd",
+      confirmText: "confirm",
+      cancelText: "cancel"
+    });
+    console.log(new utils.pageInit().getCityId().then(res => console.log(res)));
   },
   components: {},
-  methods:{
-    handlePhoneInput(e){
-      console.log(e)
+  methods: {
+    handlePhoneInput(e) {
+      console.log(e);
     },
-    input(e){
+    input(e) {
       this.text = e;
-      console.log(this.text)
+      console.log(this.text);
     }
   }
-}
+};
 </script>
 <style lang="less">
 #app {

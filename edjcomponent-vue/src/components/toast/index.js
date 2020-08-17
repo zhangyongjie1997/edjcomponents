@@ -1,25 +1,25 @@
-import Loading from "./loading";
+import Toast from "./toast";
 import Vue from "vue";
 import { removeNode } from "../utils";
 
-let MessageConstructor = Vue.extend(Loading());
+let MessageConstructor = Vue.extend(Toast());
 
 let instance,
   timer,
-  defaultDuration = 60000;
+  defaultDuration = 1500;
 
 function show(options = {}) {
   if (typeof options === "string") {
     options = {
-      message: options
+      message: options,
+      longTime: options.duration > defaultDuration ? true : false
     };
   }
   instance = new MessageConstructor({
     data: options
   }).$mount("body");
-  timer = setTimeout(this.close, options.duration || defaultDuration);
+  timer = setTimeout(close, options.duration || defaultDuration);
 }
-
 function close() {
   clearTimeout(timer);
   if (instance) {
@@ -27,15 +27,11 @@ function close() {
     removeNode(instance.$el);
   }
 }
-
-Loading.install = function(Vue) {
-  Vue.prototype.$loading = {
-    show,
-    close
-  };
+Toast.install = function(Vue) {
+  Vue.prototype.$toast = show;
 };
 
-Loading.show = show;
-Loading.close = close;
+Toast.show = show;
+Toast.close = close;
 
-export default Loading;
+export default Toast;
