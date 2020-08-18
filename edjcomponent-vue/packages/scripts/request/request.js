@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as config from "./config";
-import * as md5 from "md5-js";
+import md5 from "blueimp-md5";
 import Toast from "../../components/toast";
 import Loading from "../../components/loading";
 

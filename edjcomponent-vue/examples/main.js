@@ -1,8 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
-import Confirm from "./components/confirm";
-import Loading from "./components/loading";
-import Toast from "./components/toast";
+import Confirm from "../packages/components/confirm";
+import Loading from "../packages/components/loading";
+import Toast from "../packages/components/toast";
 Vue.use(Confirm);
 Vue.use(Loading);
 Vue.use(Toast);
