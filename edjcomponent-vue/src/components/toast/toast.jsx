@@ -11,8 +11,8 @@ function Toast () {
       };
     },
     render () {
-			return <div class={`${style["toast-layer"]} ${this.longTime ? style["toastAnimate2"] : style["toastAnimate"]}`}>
-        <div class={style["container-toast"]}>{this.message}</div>
+			return <div class={`${style["toast-warp"]} ${this.longTime ? style["toastAnimate2"] : style["toastAnimate"]}`}>
+        <div class={style["toast-message"]}>{this.message}</div>
       </div>
     }
   }

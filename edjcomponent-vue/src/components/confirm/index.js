@@ -1,7 +1,11 @@
 import Vue from "vue";
 import Confirm from "./confirm";
 import { removeNode } from "../utils";
-let MessageConstructor = Vue.extend(Confirm());
+
+const ComponentInstance = Confirm();
+let MessageConstructor = Vue.extend(ComponentInstance);
+
+let instance;
 
 function show(options = {}) {
   if (typeof options === "string") {
@@ -18,24 +22,27 @@ function show(options = {}) {
       options
     );
   }
-  new MessageConstructor({
+  instance = new MessageConstructor({
+    el: document.createElement("div"),
     data: options
-  }).$mount("body");
+  });
+  document.body.appendChild(instance.$el);
 }
 
 function close() {
-  if (Confirm.vm) {
-    Confirm.vm.$distroy();
-    removeNode(Confirm.vm.$el);
+  if (instance) {
+    instance.$destroy();
+    removeNode(instance.$el);
   }
 }
 
-Confirm.install = function(Vue) {
-  Vue.prototype.$confirm = show;
+ComponentInstance.show = show;
+
+ComponentInstance.close = close;
+
+ComponentInstance.install = function(Vue) {
+  Vue.prototype.$confirm = ComponentInstance;
+  Vue.component(ComponentInstance.name, ComponentInstance);
 };
 
-Confirm.show = show;
-
-Confirm.close = close;
-
-export default Confirm;
+export default ComponentInstance;

@@ -2,7 +2,8 @@ import Loading from "./loading";
 import Vue from "vue";
 import { removeNode } from "../utils";
 
-let MessageConstructor = Vue.extend(Loading());
+const ComponentInstance = Loading();
+let MessageConstructor = Vue.extend(ComponentInstance);
 
 let instance,
   timer,
@@ -15,8 +16,10 @@ function show(options = {}) {
     };
   }
   instance = new MessageConstructor({
+    el: document.createElement("div"),
     data: options
-  }).$mount("body");
+  });
+  document.body.appendChild(instance.$el);
   timer = setTimeout(this.close, options.duration || defaultDuration);
 }
 
@@ -28,14 +31,11 @@ function close() {
   }
 }
 
-Loading.install = function(Vue) {
-  Vue.prototype.$loading = {
-    show,
-    close
-  };
+ComponentInstance.show = show;
+ComponentInstance.close = close;
+
+ComponentInstance.install = function(Vue) {
+  Vue.prototype.$loading = ComponentInstance;
 };
 
-Loading.show = show;
-Loading.close = close;
-
-export default Loading;
+export default ComponentInstance;

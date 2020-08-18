@@ -1,31 +1,48 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <button>12</button>
+    <edj-component-confirm
+      :confirmCallback="confirm"
+      confirmText="confirm"
+      cancelText="confirm"
+    >
+      <template v-slot:message>
+        <p class="blue">asdasd</p>
+      </template>
+      <!-- <input type="checkbox" @change="change($event)" /> -->
+    </edj-component-confirm>
+  </div>
 </template>
 <script>
-import utils from "./scripts/utils";
 export default {
   data() {
     return {
-      text: ""
+      text: "",
+      message: "message"
     };
   },
-  created() {
-    console.log(this);
-    this.$confirm({
-      message: "asd",
-      confirmText: "confirm",
-      cancelText: "cancel"
-    });
-    console.log(new utils.pageInit().getCityId().then(res => console.log(res)));
-  },
+  created() {},
   components: {},
   methods: {
-    handlePhoneInput(e) {
-      console.log(e);
+    click() {
+      this.$confirm.show({
+        confirmText: "confirm",
+        message: "asdas",
+        cancelText: "cancel",
+        cancelCallback: function() {
+          console.log(this);
+          this.$confirm.close();
+        }.bind(this),
+        confirmCallback: function() {
+          alert("23");
+        }
+      });
     },
-    input(e) {
-      this.text = e;
-      console.log(this.text);
+    change(e) {
+      console.log(e, this);
+    },
+    confirm() {
+      console.log(this.$refs.confirm); //此处的this为父级#app
     }
   }
 };
@@ -35,5 +52,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.blue {
+  color: blue;
 }
 </style>

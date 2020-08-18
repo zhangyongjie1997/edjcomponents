@@ -2,7 +2,8 @@ import Toast from "./toast";
 import Vue from "vue";
 import { removeNode } from "../utils";
 
-let MessageConstructor = Vue.extend(Toast());
+const ComponentInstance = Toast();
+let MessageConstructor = Vue.extend(ComponentInstance);
 
 let instance,
   timer,
@@ -16,8 +17,10 @@ function show(options = {}) {
     };
   }
   instance = new MessageConstructor({
+    el: document.createElement("div"),
     data: options
-  }).$mount("body");
+  });
+  document.body.appendChild(instance.$el);
   timer = setTimeout(close, options.duration || defaultDuration);
 }
 function close() {
@@ -27,11 +30,12 @@ function close() {
     removeNode(instance.$el);
   }
 }
-Toast.install = function(Vue) {
-  Vue.prototype.$toast = show;
+
+ComponentInstance.show = show;
+ComponentInstance.close = close;
+
+ComponentInstance.install = function(Vue) {
+  Vue.prototype.$toast = ComponentInstance;
 };
 
-Toast.show = show;
-Toast.close = close;
-
-export default Toast;
+export default ComponentInstance;
