@@ -42,7 +42,7 @@ export default {
       console.log(e, this);
     },
     confirm() {
-      console.log(this.$refs.confirm); //此处的this为父级#app
+      console.log(this); //此处的this为父级#app
     }
   }
 };

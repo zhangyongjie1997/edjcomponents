@@ -54,6 +54,7 @@ function Confirm() {
       }
     },
     render(h, context = {}) {
+      console.log(this)
       const data = Object.assign({}, context.props, this);
       console.log(context);
       return (

@@ -1,7 +1,7 @@
 import components from "./components";
-import utils from "./scripts";
+// import utils from "./scripts";
 
 export default {
-  components,
-  utils
+  components
+  // utils
 };
