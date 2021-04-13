@@ -1,29 +1,24 @@
 <template>
   <div id="app">
-    <button>12</button>
-    <edj-component-confirm
-      :confirmCallback="confirm"
-      confirmText="confirm"
-      cancelText="confirm"
-    >
-      <template v-slot:message>
-        <p class="blue">asdasd</p>
-      </template>
-      <!-- <input type="checkbox" @change="change($event)" /> -->
-    </edj-component-confirm>
+    <button @click="click2">12</button>
+    
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      text: "",
+      text: 1,
       message: "message"
     };
   },
   created() {},
   components: {},
   methods: {
+    click2(){
+      this.$loading.show()
+      this.$toast.show({message: this.text++})
+    },
     click() {
       this.$confirm.show({
         confirmText: "confirm",

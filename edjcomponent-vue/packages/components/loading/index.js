@@ -1,41 +1,41 @@
-import Loading from "./loading";
-import Vue from "vue";
-import { removeNode } from "../utils";
+import Loading from './loading'
+import Vue from 'vue'
+import { removeNode } from '../utils'
 
-const ComponentInstance = Loading();
-let MessageConstructor = Vue.extend(ComponentInstance);
+const ComponentInstance = Object.create(null)
+const MessageConstructor = Vue.extend(Loading)
 
 let instance,
-  timer,
-  defaultDuration = 60000;
+    timer,
+    defaultDuration = 60000
 
-function show(options = {}) {
-  if (typeof options === "string") {
-    options = {
-      message: options
-    };
-  }
-  instance = new MessageConstructor({
-    el: document.createElement("div"),
-    data: options
-  });
-  document.body.appendChild(instance.$el);
-  timer = setTimeout(this.close, options.duration || defaultDuration);
+function show(options = {message: ''}) {
+    if (typeof options !== 'object') {
+        options = {
+            message: options,
+        }
+    }
+    instance = new MessageConstructor({
+        el: document.createElement('div'),
+        data: options,
+    })
+    document.body.appendChild(instance.$el)
+    timer = setTimeout(this.close, options.duration || defaultDuration)
 }
 
 function close() {
-  clearTimeout(timer);
-  if (instance) {
-    instance.$destroy();
-    removeNode(instance.$el);
-  }
+    clearTimeout(timer)
+    if (instance) {
+        instance.$destroy()
+        removeNode(instance.$el)
+    }
 }
 
-ComponentInstance.show = show;
-ComponentInstance.close = close;
+ComponentInstance.show = show
+ComponentInstance.close = close
 
 ComponentInstance.install = function(Vue) {
-  Vue.prototype.$loading = ComponentInstance;
-};
+    Vue.prototype.$loading = ComponentInstance
+}
 
-export default ComponentInstance;
+export default ComponentInstance

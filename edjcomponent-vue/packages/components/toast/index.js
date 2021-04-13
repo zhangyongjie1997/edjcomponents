@@ -1,41 +1,40 @@
-import Toast from "./toast";
-import Vue from "vue";
-import { removeNode } from "../utils";
+import Toast from './toast.vue'
+import Vue from 'vue'
+import { removeNode } from '../utils'
 
-const ComponentInstance = Toast();
-let MessageConstructor = Vue.extend(ComponentInstance);
+const ComponentInstance = Object.create(null)
+const MessageConstructor = Vue.extend(Toast)
 
 let instance,
-  timer,
-  defaultDuration = 1500;
+    timer,
+    defaultDuration = 1500
 
 function show(options = {}) {
-  if (typeof options === "string") {
-    options = {
-      message: options,
-      longTime: options.duration > defaultDuration ? true : false
-    };
-  }
-  instance = new MessageConstructor({
-    el: document.createElement("div"),
-    data: options
-  });
-  document.body.appendChild(instance.$el);
-  timer = setTimeout(close, options.duration || defaultDuration);
+    if (typeof options !== 'object') {
+        options = {
+            message: options.toString(),
+        }
+    }
+    instance = new MessageConstructor({
+        el: document.createElement('div'),
+        data: options,
+    })
+    document.body.appendChild(instance.$el)
+    timer = setTimeout(close, options.duration || defaultDuration)
 }
 function close() {
-  clearTimeout(timer);
-  if (instance) {
-    instance.$destroy();
-    removeNode(instance.$el);
-  }
+    clearTimeout(timer)
+    if (instance) {
+        instance.$destroy()
+        removeNode(instance.$el)
+    }
 }
 
-ComponentInstance.show = show;
-ComponentInstance.close = close;
+ComponentInstance.show = show
+ComponentInstance.close = close
 
 ComponentInstance.install = function(Vue) {
-  Vue.prototype.$toast = ComponentInstance;
-};
+    Vue.prototype.$toast = ComponentInstance
+}
 
-export default ComponentInstance;
+export default ComponentInstance

@@ -1,48 +1,48 @@
-import Vue from "vue";
-import Confirm from "./confirm";
-import { removeNode } from "../utils";
+import Vue from 'vue'
+import Confirm from './confirm'
+import { removeNode } from '../utils'
 
-const ComponentInstance = Confirm();
-let MessageConstructor = Vue.extend(ComponentInstance);
+const ComponentInstance = Object.create(null)
+const MessageConstructor = Vue.extend(Confirm)
 
-let instance;
+let instance
 
 function show(options = {}) {
-  if (typeof options === "string") {
-    options = {
-      message: options,
-      confirmText: "确定"
-    };
-  } else {
-    options = Object.assign(
-      {
-        confirmText: "确定",
-        message: "message"
-      },
-      options
-    );
-  }
-  instance = new MessageConstructor({
-    el: document.createElement("div"),
-    data: options
-  });
-  document.body.appendChild(instance.$el);
+    if (typeof options === 'string') {
+        options = {
+            message: options,
+            confirmText: '确定',
+        }
+    } else {
+        options = Object.assign(
+            {
+                confirmText: '确定',
+                message: 'message',
+            },
+            options
+        )
+    }
+    instance = new MessageConstructor({
+        el: document.createElement('div'),
+        data: options,
+    })
+    document.body.appendChild(instance.$el)
 }
 
 function close() {
-  if (instance) {
-    instance.$destroy();
-    removeNode(instance.$el);
-  }
+    if (instance) {
+        instance.$destroy()
+        removeNode(instance.$el)
+    }
 }
 
-ComponentInstance.show = show;
+ComponentInstance.show = show
 
-ComponentInstance.close = close;
+ComponentInstance.close = close
 
 ComponentInstance.install = function(Vue) {
-  Vue.prototype.$confirm = ComponentInstance;
-  Vue.component(ComponentInstance.name, ComponentInstance);
-};
+    Vue.prototype.$confirm = ComponentInstance
+    Vue.component(ComponentInstance.name, ComponentInstance)
+}
 
-export default ComponentInstance;
+export default ComponentInstance

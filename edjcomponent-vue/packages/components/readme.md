@@ -25,7 +25,6 @@ this.$confirm.show({
   message: "asdas",
   cancelText: "cancel",
   cancelCallback: function() {
-    console.log(this);
     this.$confirm.close();
   }.bind(this),
   confirmCallback: function() {
@@ -44,7 +43,6 @@ confirm.show({
   message: "asdas",
   cancelText: "cancel",
   cancelCallback: function() {
-    console.log(this);
     this.$confirm.close();
   }.bind(this),
   confirmCallback: function() {

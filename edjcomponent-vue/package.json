@@ -1,7 +1,7 @@
 {
   "name": "edjcomponent-vue",
-  "version": "0.1.5",
-  "main": "./lib/edjcomponent.umd.min.js",
+  "version": "0.2.1",
+  "main": "packages/index.js",
   "scripts": {
     "example": "vue-cli-service serve",
     "build": "vue-cli-service build",
