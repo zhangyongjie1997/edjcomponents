@@ -20,9 +20,9 @@ function show(options = {}) {
         data: options,
     })
     document.body.appendChild(instance.$el)
-    timer = setTimeout(close, options.duration || defaultDuration)
+    timer = setTimeout(hide, options.duration || defaultDuration)
 }
-function close() {
+function hide() {
     clearTimeout(timer)
     if (instance) {
         instance.$destroy()
@@ -31,7 +31,7 @@ function close() {
 }
 
 ComponentInstance.show = show
-ComponentInstance.close = close
+ComponentInstance.hide = hide
 
 ComponentInstance.install = function(Vue) {
     Vue.prototype.$toast = ComponentInstance

@@ -8,12 +8,12 @@ export default {
         message: {
             type: String,
             required: false,
-            default: undefined,
+            default: '',
         },
         cancelText: {
             type: String,
             required: false,
-            default: undefined,
+            default: '',
         },
         confirmText: {
             type: String,
@@ -32,13 +32,7 @@ export default {
         },
     },
     data() {
-        return {
-            message: '',
-            cancelText: '',
-            confirmText: '',
-            cancelCallback: () => {},
-            confirmCallback: () => {},
-        }
+        return {}
     },
     methods: {
         onConfirmClick() {
@@ -47,7 +41,7 @@ export default {
         onCancelClick() {
             this.cancelCallback()
         },
-        close() {
+        hide() {
             this.$destroy()
             removeNode(this.$el)
         },

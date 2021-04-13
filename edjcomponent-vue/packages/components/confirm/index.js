@@ -29,7 +29,7 @@ function show(options = {}) {
     document.body.appendChild(instance.$el)
 }
 
-function close() {
+function hide() {
     if (instance) {
         instance.$destroy()
         removeNode(instance.$el)
@@ -38,7 +38,7 @@ function close() {
 
 ComponentInstance.show = show
 
-ComponentInstance.close = close
+ComponentInstance.hide = hide
 
 ComponentInstance.install = function(Vue) {
     Vue.prototype.$confirm = ComponentInstance

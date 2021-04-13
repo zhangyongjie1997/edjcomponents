@@ -25,7 +25,7 @@ this.$confirm.show({
   message: "asdas",
   cancelText: "cancel",
   cancelCallback: function() {
-    this.$confirm.close();
+    this.$confirm.hide();
   }.bind(this),
   confirmCallback: function() {
     alert("23");
@@ -43,7 +43,7 @@ confirm.show({
   message: "asdas",
   cancelText: "cancel",
   cancelCallback: function() {
-    this.$confirm.close();
+    this.$confirm.hide();
   }.bind(this),
   confirmCallback: function() {
     alert("23");
