@@ -11,7 +11,7 @@ export default {
     },
     render() {
         return (
-            <div class={`${style['toast-warp']} ${this.longTime ? style['toastAnimate2'] : style['toastAnimate']}`}>
+            <div class={`${style['toast-warp']} ${this.longTime ? style['toast-animate2'] : style['toast-animate']}`}>
                 <div class={style['toast-message']}>{this.message}</div>
             </div>
         )

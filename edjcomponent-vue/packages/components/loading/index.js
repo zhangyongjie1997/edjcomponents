@@ -15,6 +15,7 @@ function show(options = {message: ''}) {
             message: options,
         }
     }
+    hide()
     instance = new MessageConstructor({
         el: document.createElement('div'),
         data: options,

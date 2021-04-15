@@ -1,6 +1,6 @@
 {
   "name": "edjcomponent-vue",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "main": "packages/index.js",
   "scripts": {
     "example": "vue-cli-service serve",

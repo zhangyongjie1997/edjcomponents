@@ -7,7 +7,7 @@ const MessageConstructor = Vue.extend(Toast)
 
 let instance,
     timer,
-    defaultDuration = 1500
+    defaultDuration = 2000
 
 function show(options = {}) {
     if (typeof options !== 'object') {
@@ -15,6 +15,7 @@ function show(options = {}) {
             message: options.toString(),
         }
     }
+    hide()
     instance = new MessageConstructor({
         el: document.createElement('div'),
         data: options,
